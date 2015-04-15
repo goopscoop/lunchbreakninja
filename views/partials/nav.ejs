@@ -1,0 +1,58 @@
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+      </div>
+      <div class="modal-body">
+          <% include ../partials/alerts.ejs %>
+          <form class="form" method="post" action="/auth/login">
+              <input type="text" class="form-control" placeholder="Enter your e-mail" name="email">
+              <br><br>
+              <input type="password" class="form-control" placeholder="Choose a password" name="password">
+              <br><br>
+              <input type="submit" value="Sign In" class="btn btn-primary">
+          </form>
+          <a href="/auth/login/facebook">Login with Facebook</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand navbar-btn" href="/"><span class="glyphicon glyphicon-cutlery"></span> LBN</a>
+       <% if (loggedIn) { %>
+        <ul class="navbar-brand navbar-btn user-name">
+          <li>Hello <%= loggedIn.name %></li>
+          </ul>
+       <% } %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href='/ninjitsu' class="navbar-btn">Find Lunch</a></li>
+        <% if (loggedIn) { %>
+          <li><a href='/auth/logout' id='logout-btn' class="btn btn-info navbar-btn"><span class='glyphicon glyphicon-user'></span> Log Out</a></li>
+        <% } else {  %>
+          <li><a type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#myModal">Sign In</a></li>
+          <li><a href='/auth/signup' id='signup-btn' class="btn btn-info navbar-btn"><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>

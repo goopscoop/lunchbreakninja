@@ -1,0 +1,73 @@
+/*#signup-btn {
+  padding: 7px;
+  color: white;
+}*/
+.title-pane {
+    background-color: rgba(248, 247, 216, 0.7);
+    position: absolute;
+    top: 55%;
+    /*left: 50%;*/
+    width: 100%;
+
+  z-index: 99;
+}
+
+.user-name {
+  color: white;
+  font-size: 1.2em;
+  list-style: none;
+}
+
+.title-text {
+  background-color: rgba(248, 247, 216, 0.7);
+  text-shadow: 4px 4px 10px rgba(150, 150, 150, 0.69);
+  top: 55%;
+  /*left: 50%;*/
+  text-align: right;
+  width: 100%;
+  position: absolute;
+  font-size: 4em;
+  font-weight: 700;
+}
+
+.glass {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+}
+
+
+.header-splash {
+  background-image: url('../img/head.jpeg');
+  max-height: 450px;
+  overflow: hidden;
+}
+
+.quote-img {
+  padding-right: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.signup-form {
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 3%;
+}
+
+.signup-2 {
+  display: none;
+}
+
+#search-form {
+  display: none;
+}
+
+#map {
+  height: 300px;
+}

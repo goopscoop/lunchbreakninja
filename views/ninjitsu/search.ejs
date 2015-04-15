@@ -1,0 +1,68 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+<div class="container">
+  <div class="row">
+    <div id='search-form' class="col-md-8 col-md-offset-2">
+
+        <form action='ninjitsu/result' id='location-feild' method='post' class='signup-form'>
+          <input id='search-location' name='location' type="text" class='form-control' placeholder='My location'>
+          <h2 class='center'>Ninja Options</h2>
+          <% if (!loggedIn) { %>
+          <p><em>Note: Want to ninja your lunch break? You can have your lunch break ninja'd without signing up for a free accout, but just imagine how much better your results will be when results are personalized to your tastes!</em></p>
+          <% } %>
+          <h3>Distance</h3>
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                  <input type="radio" name="distanceRadios" id="distanceRadios1" value="1200" checked>
+                  Walking distance (1/2 Mile)
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                  <input type="radio" name="distanceRadios" id="distanceRadios2" value="8046">
+                  Within 5 miles
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                  <input type="radio" name="distanceRadios" id="distanceRadios2" value="16093">
+                  Within 10 miles
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                  <input type="radio" name="distanceRadios" id="distanceRadios2" value="32186">
+                  Within 20 miles
+              </label>
+            </div>
+          </div>
+          <h3>Take me...</h3>
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                  <input type="radio" name="familiarRadios" id="familiarRadios1" value="new" checked>
+                  Somewhere new
+              </label>
+            </div>
+            <div class="radio">
+              <% if (loggedIn) { %>
+              <label>
+                  <input type="radio" name="familiarRadios" id="familiarRadios2" value="familiar">
+                  Somwhere familiar
+              </label>
+              <% } else { %>
+              <label>
+                  <input type="radio" name="familiarRadios" id="familiarRadios2" value="option2" disabled>
+                  Somewhere familiar (Must be logged in)
+              </label>
+              <% } %>
+            </div>
+          </div>
+          <button class='btn btn-lg btn-primary'>Lunch Me!</button>
+        </form>
+
+    </div>
+  </div>
+</div>
+<% include ../partials/footer %>
