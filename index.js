@@ -140,97 +140,14 @@ app.use(function(req,res,next){
 })
 
 
-// See http://www.yelp.com/developers/documentation/v2/business
-// yelp.business("yelp-san-francisco", function(error, data) {
-//   console.log(error);
-//   console.log(data);
-// });
-
-// app.use(function(req,res,next){
-
-//   req.getPick = function(foodType, place){
-//     yelp.search({term: foodType, location: place}, function(error, data) {
-//     var narrowArray = []
-
-//       //sorts all restaurants by rating with 4.5 and up
-//       //at the beginning of the array, and 4.0 at the end.
-//       for(var i = 0; i < data.businesses.length; i++) {
-//         if( data.businesses[i].rating > 4 ) {
-//           narrowArray.unshift(data.businesses[i])
-//         } else if ( data.businesses[i].rating > 3.5 ) {
-//           narrowArray.push(data.businesses[i])
-//         }
-//       }
-
-//       //If the above function returns an array of 3 or less
-//       //the below function then adds restaurants with a score
-//       //of 3.5.
-//       if( narrowArray.length < 4 ) {
-//         console.log('!!!!!!low results!!!!!!!')
-//         for( var j = 0; j < data.businesses.length; j++ ) {
-//           if ( data.businesses[i].rating < 4 && data.businesses[i].rating > 3 )
-//             narrowArray.push(data.businesses[i]);
-//         }
-//       }
-
-//       //Checks to make sure all restaurants in 'narrowArray' are
-//       //actually of the inteded category. If they aren't, it deletes them.
-//       var categoryCheck = []
-
-//       narrowArray.forEach(function(item, loc){
-//         var temp = []
-
-//         narrowArray[loc].categories.forEach(function(item2, loc2){
-//           if ( item2[0] === foodType || item2[1] === foodType ) {
-//             categoryCheck.push(narrowArray[loc]);
-//           }
-//         });
-//       return categoryCheck;
-//       })
-//       // console.log(categoryCheck)
-//     })
-//   };
-//   next();
-// });
-
 
 app.get('/', function(req,res){
   res.render('index')
-//   yelp.search({term: "restaurants", location: "434A Yale Avenue North, Seattle, WA 98109, USA", sort: 1 }, function(error, data) {
-// //   console.log(error);
-//   res.send(data);
-//   });
-// var closeBusinesses = [];
-//   yelp.search({term: 'restaurants', location: "434A Yale Avenue North, Seattle, WA 98109, USA", sort: 1 },
-//     function(error, data) {
-//       for(var i = 0; i < data.businesses.length; i ++) {
-//         if ( data.businesses[i].distance < 800 ) {
-//           closeBusinesses.push(data.businesses[i]);
-//         } else {
-//           break;
-//         }
-//       }
-//     yelp.search({term: 'restaurants', location: "434A Yale Avenue North, Seattle, WA 98109, USA", sort: 1, offset: 20 },
-//       function(error, data) {
-//         for(var i = 0; i < data.businesses.length; i ++) {
-//           if ( data.businesses[i].distance < 800 ) {
-//             closeBusinesses.push(data.businesses[i]);
-//           } else {
-//             break;
-//           }
-//         }
-//         if( closeBusinesses.length > 0 ) {
-//         res.send(closeBusinesses)
-//         console.log(closeBusinesses.length)
-//       } else {
-//         req.flash('danger','There are no restaurants within your lunch break ninja search range. Please expand your search radius and try again');
-//         res.render('ninjitsu/search')
-//       }
-//     });
-//   });
+
 });
 
 app.use('/auth', require('./controlers/auth'));
 app.use('/ninjitsu', require('./controlers/ninjitsu'));
+app.use('/user', require('./controlers/user'));
 
 app.listen(process.env.PORT || 3000);

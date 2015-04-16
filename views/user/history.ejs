@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1>Places you've ninja'd</h1>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+
+          <tbody>
+
+          <% history.forEach(function(item, loc){ %>
+            <tr>
+              <td>
+                <h3><%= history[loc].restaurant %></h3>
+                <p><strong>Last visited:</strong> <%= history[loc].updatedAt %></p>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button class='btn btn-success like-btn'><span class='glyphicon glyphicon-thumbs-up'></span></button>
+                  <button class='btn btn-warning dislike-btn'>meh.</button>
+                  <button class='btn btn-danger dislike-btn'><span class='glyphicon glyphicon-thumbs-down'></span></button>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+<% include ../partials/footer %>

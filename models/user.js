@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         models.user.hasMany(models.provider);
         models.user.hasMany(models.category);
+        models.user.hasMany(models.history);
       }
     },
     instanceMethods: {

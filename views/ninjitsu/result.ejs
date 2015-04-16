@@ -45,9 +45,14 @@
 <div class="row">
   <div class="text-center">
     <div class="col-md-2 col-md-offset-4">
-      <form>
-        <button id='eating-here-btn' class='btn btn-lg btn-success'>I'm eating here!</button>
+      <form action='/user/history' method='post'>
+        <input type='hidden' name='restaurant' value='<%= finalPick[0].name %>'>
+        <input type='hidden' name='lat' value='<%= finalPick[0].location.coordinate.latitude %>'>
+        <input type='hidden' name='lng' value='<%= finalPick[0].location.coordinate.longitude %>'>
+        <input type='hidden' name='phone' value='<%= finalPick[0].phone %>'>
+        <button  id='eating-here-btn' class='btn btn-lg btn-success <%if(!loggedIn){%>disabled<%}%>'>I'm eating here!</button>
       </form>
+      <%if(!loggedIn){%> <p><small><span class='glyphicon glyphicon-arrow-up'></span> Please create a free account to use this feature</small></p><%}%>
     </div>
     <div class="col-md-2">
       <form>

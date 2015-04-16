@@ -63,6 +63,7 @@ $('#signup-form-1').on('submit', function(e){
   }
 });
 
+$( document ).tooltip();
 
 if(window.location.pathname === '/auth/categories') {
   var user = user;

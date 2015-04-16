@@ -43,11 +43,28 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" >
       <ul class="nav navbar-nav navbar-right">
-          <li><a href='/ninjitsu' class="navbar-btn btn">Find Lunch</a></li>
+
+        <li><a href='/ninjitsu' class="navbar-btn btn">Find Lunch</a></li>
+
         <% if (loggedIn) { %>
-          <li><a href='/auth/categories' class="navbar-btn btn">Options</a></li>
+
+          <li>
+            <div class=" dropdown ">
+              <a id="dLabel" class="dropdown navbar-btn btn btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Me <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a href='/user/history' class="navbar-btn btn">History</a></li>
+                <li><a href='/auth/categories' class="navbar-btn btn">Prefrences</a></li>
+              </ul>
+            </div>
+          </li>
+
+
+
+
           <li><a href='/auth/logout' id='logout-btn' class="btn btn-info navbar-btn"><span class='glyphicon glyphicon-user'></span> Log Out</a></li>
         <% } else {  %>
           <li><a type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#myModal">Sign In</a></li>
