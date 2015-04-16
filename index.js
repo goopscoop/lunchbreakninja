@@ -233,6 +233,4 @@ app.get('/', function(req,res){
 app.use('/auth', require('./controlers/auth'));
 app.use('/ninjitsu', require('./controlers/ninjitsu'));
 
-app.listen(3000, function(){
-  console.log('server started on node 3000')
-});
+app.listen(process.env.PORT || 3000);
