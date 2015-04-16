@@ -196,10 +196,38 @@ app.use(function(req,res,next){
 
 app.get('/', function(req,res){
   res.render('index')
-  // yelp.search({term: "restaurants", location: "Seattle"}, function(error, data) {
+//   yelp.search({term: "restaurants", location: "434A Yale Avenue North, Seattle, WA 98109, USA", sort: 1 }, function(error, data) {
 // //   console.log(error);
-  // res.send(data);
-  // });
+//   res.send(data);
+//   });
+// var closeBusinesses = [];
+//   yelp.search({term: 'restaurants', location: "434A Yale Avenue North, Seattle, WA 98109, USA", sort: 1 },
+//     function(error, data) {
+//       for(var i = 0; i < data.businesses.length; i ++) {
+//         if ( data.businesses[i].distance < 800 ) {
+//           closeBusinesses.push(data.businesses[i]);
+//         } else {
+//           break;
+//         }
+//       }
+//     yelp.search({term: 'restaurants', location: "434A Yale Avenue North, Seattle, WA 98109, USA", sort: 1, offset: 20 },
+//       function(error, data) {
+//         for(var i = 0; i < data.businesses.length; i ++) {
+//           if ( data.businesses[i].distance < 800 ) {
+//             closeBusinesses.push(data.businesses[i]);
+//           } else {
+//             break;
+//           }
+//         }
+//         if( closeBusinesses.length > 0 ) {
+//         res.send(closeBusinesses)
+//         console.log(closeBusinesses.length)
+//       } else {
+//         req.flash('danger','There are no restaurants within your lunch break ninja search range. Please expand your search radius and try again');
+//         res.render('ninjitsu/search')
+//       }
+//     });
+//   });
 });
 
 app.use('/auth', require('./controlers/auth'));

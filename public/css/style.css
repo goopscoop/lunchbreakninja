@@ -2,6 +2,16 @@
   padding: 7px;
   color: white;
 }*/
+
+/*Global*/
+
+.user-name {
+  color: white;
+  font-size: 1.2em;
+  list-style: none;
+}
+
+/*Home Page*/
 .title-pane {
     background-color: rgba(248, 247, 216, 0.7);
     position: absolute;
@@ -10,12 +20,6 @@
     width: 100%;
 
   z-index: 99;
-}
-
-.user-name {
-  color: white;
-  font-size: 1.2em;
-  list-style: none;
 }
 
 .title-text {
@@ -42,6 +46,8 @@
   overflow: hidden;
 }
 
+/*Results Page*/
+
 .quote-img {
   padding-right: 20px;
 }
@@ -54,20 +60,63 @@ h1 {
   text-align: center;
 }
 
+#map {
+  height: 300px;
+}
+
+.yelp-rating {
+  /*padding-left: 2.5%;*/
+}
+
+#small-jumbo {
+  font-size: 0.8em;
+  /*padding-left: 2.5%*/
+}
+/*Signup Pages*/
+.buttons {
+  display: inline;
+}
+
 .signup-form {
   background-color: lightgrey;
   border-radius: 10px;
   padding: 3%;
 }
 
+
+@media (min-width: 992px) {
+  #eating-here-btn {
+    margin-top: -40%;
+    left: -15%;
+    position: relative;
+  }
+
+  #try-again-btn {
+    margin-top: -40%;
+    left: -7%;
+    position: relative;
+  }
+}
+
+
+
+.jumbotron p {
+  line-height: 1em;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.jumbotron li {
+  list-style-type: none;
+}
 .signup-2 {
   display: none;
 }
+.result-info {
 
+  margin-left: 5%;
+  text-align: left;
+}
 #search-form {
   display: none;
-}
-
-#map {
-  height: 300px;
 }

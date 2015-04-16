@@ -45,8 +45,9 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-          <li><a href='/ninjitsu' class="navbar-btn">Find Lunch</a></li>
+          <li><a href='/ninjitsu' class="navbar-btn btn">Find Lunch</a></li>
         <% if (loggedIn) { %>
+          <li><a href='/auth/categories' class="navbar-btn btn">Options</a></li>
           <li><a href='/auth/logout' id='logout-btn' class="btn btn-info navbar-btn"><span class='glyphicon glyphicon-user'></span> Log Out</a></li>
         <% } else {  %>
           <li><a type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#myModal">Sign In</a></li>

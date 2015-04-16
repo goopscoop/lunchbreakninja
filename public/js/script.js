@@ -46,7 +46,8 @@ $('#signup-form-1').on('submit', function(e){
   var myData = $(this).serialize();
   if($('#signup-email').val() == null || $('#signup-email').val() == ''
       || $('#signup-pass').val() == null || $('#signup-pass').val() == ''
-      || $('#signup-pass-conf').val() == null || $('#signup-pass-conf').val() == '' ) {
+      || $('#signup-pass-conf').val() == null || $('#signup-pass-conf').val() == ''
+      || $('#signup-pass').val() !== $('#signup-pass-conf').val() ) {
     $('.signup-1').effect('shake');
   } else {
     $.ajax({
@@ -54,7 +55,7 @@ $('#signup-form-1').on('submit', function(e){
       url: myUrl,
       data: myData
     }).done(function(data){
-      console.log('USER DATA????????????????',data)
+      console.log('USER DATA (this log from script.js)',data)
       $('.signup-1').hide( 'drop', {direction: 'left'}, function(){
       $('.signup-2').show( 'drop', {direction: 'right'})
       });
@@ -70,7 +71,8 @@ if(window.location.pathname === '/auth/categories') {
 
 
 //Auto populates the location feild and causes drop animation
-if(window.location.pathname === 'ninjitsu') {
+if(window.location.pathname === '/ninjitsu' ||
+   window.location.pathname === '/ninjitsu/' ) {
   $('#search-form').show('drop', {direction: 'right'}, 450);
   if(navigator) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -115,7 +117,13 @@ $('.cat-check').on('click', function(e){
 })
 
 
-
+$('#location-feild').on('submit', function(e){
+  if( $('#search-location').val() === null ||
+      $('#search-location').val() === '' ) {
+    e.preventDefault();
+    $('#search-form').effect('shake');
+  }
+})
 
 
 

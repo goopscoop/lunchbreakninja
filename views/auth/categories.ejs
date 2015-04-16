@@ -9,7 +9,7 @@
       <div class="col-md-6 col-md-offset-3">
 
         <h1>What kind of restaurants do you enjoy?</h1>
-         <% include ../partials/alerts.ejs %>
+        <% include ../partials/alerts.ejs %>
         <p><em>Hint: The more types of restaurants you include in your profile, the better your Lunch Break Ninja experience will be. Go crazy! You can always change your prefernces later.</em></p>
         <h3 class='center'>Step 2 of 2</h3>
         <form  method='post' class='signup-form' action='/ninjitsu/categories'>
@@ -19,7 +19,10 @@
                 <div class="form-group">
                   <div class="checkbox">
                     <label>
-                      <input class='cat-check' type="checkbox" name='category' value='<%= categories[i].id %>'> <%= categories[i].category %>
+                      <input class='cat-check' type="checkbox" name='category' value='<%= categories[i].id %>'
+                      <% for (var j = 0; j < userData.categories.length; j++) { %>
+                          <% if (userData.categories[j].categoriesusers.categoryId === categories[i].id) { %>
+                          checked<%}}%>> <%= categories[i].category %>
                     </label>
                   </div>
                 </div>
@@ -28,10 +31,14 @@
             <div class="col-md-4 col-sm-4">
 
             <% for (var i = Math.floor(categories.length / 2); i < categories.length; i++ ) { %>
+
                 <div class="form-group">
                   <div class="checkbox">
                     <label>
-                      <input class='cat-check' type="checkbox" name='category' value='<%= categories[i].id %>'> <%= categories[i].category %>
+                      <input class='cat-check' type="checkbox" name='category' value='<%= categories[i].id %>'
+                        <% for (var j = 0; j < userData.categories.length; j++) { %>
+                          <% if (userData.categories[j].categoriesusers.categoryId === categories[i].id) { %>
+                            checked<% } } %> > <%= categories[i].category %>
                     </label>
                   </div>
                 </div>
