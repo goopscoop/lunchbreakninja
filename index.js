@@ -8,7 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 var NODE_ENV = process.env.NODE_ENV || 'development';
-var BASE_URL = (NODE_ENV === 'production') ? 'https://something.heroku.com' : 'http://localhost:3000' ;
+var BASE_URL = (NODE_ENV === 'production') ? 'https://lunchbreakninja.heroku.com' : 'http://localhost:3000' ;
 
 //setup passport user serialization ///
 passport.serializeUser(function(user, done){
