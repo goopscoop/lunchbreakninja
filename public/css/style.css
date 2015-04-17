@@ -25,6 +25,9 @@ body, html {
   z-index: 90;
 }
 
+#home-pic {
+  width: 100%;
+}
 .find-lunch-btn {
   z-index: 99;
   text-align: center;
