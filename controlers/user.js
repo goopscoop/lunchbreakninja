@@ -61,7 +61,7 @@ router.put('/meh',function(req,res){
   var data = req.body;
   db.history.update({
     like:null,
-    meh:data.like
+    meh:data.meh
   },{
     where:{
       id:data.id

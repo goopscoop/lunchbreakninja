@@ -143,7 +143,10 @@ $('.like-btn').on('submit', function(e){
   }).done(function(success){
     console.log('LIKE SUCCESS!', success)
   });
-  $(form).closest('tr').addClass('success')
+  $(form).children('button').addClass('btn-success');
+  $(form).children('button').removeClass('btn-default');
+  $(form).siblings('.unlike-btn, .meh-btn').children('button').removeClass('btn-danger, btn-warning');
+  $(form).siblings('form').children('button').addClass('btn-default');
 });
 
 $('.unlike-btn').on('submit', function(e){
@@ -157,7 +160,10 @@ $('.unlike-btn').on('submit', function(e){
   }).done(function(success){
     console.log('LIKE/UNLIKE SUCCESS!', success)
   });
-  $(form).closest('tr').addClass('danger')
+  $(form).children('button').addClass('btn-danger');
+  $(form).children('button').removeClass('btn-default');
+  $(form).siblings('.like-btn, .meh-btn').children('button').removeClass('btn-success, btn-warning');
+  $(form).siblings('form').children('button').addClass('btn-default');
 });
 
 
@@ -172,6 +178,10 @@ $('.meh-btn').on('submit', function(e){
   }).done(function(success){
     console.log('MEH SUCCESS!', success)
   });
-    $(form).closest('tr').addClass('warning')
+    $(form).children('button').addClass('btn-warning');
+    $(form).children('button').removeClass('btn-default');
+    $(form).siblings('.like-btn, .unlike-btn').children('button').removeClass('btn-success, btn-danger')
+    $(form).siblings('form').children('button').addClass('btn-default')
 });
-})
+
+});
