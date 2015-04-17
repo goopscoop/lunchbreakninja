@@ -46,7 +46,7 @@ router.post('/signup', function(req,res){
         req.login(user,function(err){
           if(err) throw err;
           console.log('REGULAR USER !!!!!!!!!!', user)
-          res.send(user);
+          res.send({user: user});
         })
       } else {
         res.send('email already exists');

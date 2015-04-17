@@ -14,7 +14,7 @@
 //     }
 // }
 
-
+var user = {};
 
 //Function Creates Map
 var drawMap = function(markers) {
@@ -56,12 +56,18 @@ $('#signup-form-1').on('submit', function(e){
       data: myData
     }).done(function(data){
       console.log('USER DATA (this log from script.js)',data)
-      $('.signup-1').hide( 'drop', {direction: 'left'}, function(){
-      $('.signup-2').show( 'drop', {direction: 'right'})
-      });
+      if (data === 'email already exists') {
+        $( "#dialog" ).dialog();
+      } else {
+        user = data.user;
+        $('.signup-1').hide( 'drop', {direction: 'left'}, function(){
+        $('.signup-2').show( 'drop', {direction: 'right'})
+        });
+      }
     });
   }
 });
+
 
 $( document ).tooltip();
 
@@ -93,9 +99,9 @@ if(window.location.pathname === '/ninjitsu' ||
 $('.cat-check').on('click', function(e){
   var checkbox = $(this);
   var value = $(this).attr('value')
-  var data = { userId: id,
+  var data = { userId: user.id,
                category: value }
-  console.log(value, id)
+  console.log(value, user.id)
   if($(checkbox).prop('checked')){
     console.log('check')
     $.ajax({

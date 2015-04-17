@@ -1,72 +1,5 @@
-var express = require('express');
-var router = express.Router();
-var db = require('../models');
-var geocoder = require('geocoder');
-var async = require('async')
-// var request = require('request');
-
-var yelp = require("yelp").createClient({
-  consumer_key: process.env.YELP_CONSUMER_KEY,
-  consumer_secret: process.env.YELP_CONSUMER_SECRET,
-  token: process.env.YELP_TOKEN,
-  token_secret: process.env.YELP_SECRET
-});
-
-
-//ADD and REMOVE CATEGORIES IN REAL TIME
-router.post('/categories', function(req,res){
-  var catInfo = req.body;
-  console.log('ADDING CATEGORY INFO', catInfo)
-  db.categoriesusers.findOrCreate({where:
-    {userId: catInfo.userId, categoryId: catInfo.category }
-  }).spread(function(category,created){
-    console.log(category.get({
-      plain: true
-    }))
-    console.log(created)
-  })
-  res.render('ninjitsu')
-});
-
-router.post('/categories/remove', function(req,res){
-  var catInfo = req.body;
-  console.log('REMOVING CATEGORY INFO', catInfo)
-  db.categoriesusers.destroy({where:
-    {userId: catInfo.userId, categoryId: catInfo.category}
-  }).then(function() {
-
-    res.send({result:true})
-  })
-});
-//END ADD AND REMOVE CATS
-
-
-//SEARCH PAGE
-router.get('/', function(req,res){
-  res.render('ninjitsu/search')
-});
-
-
-router.get('/result', function(req,res){
-
-  res.redirect('/')
-});
-
-
-
-//Search route
-//returns this object:
-// {
-// location: "Chicago",
-// distanceRadios: "1",
-// familiarRadios: "new"
-// }
-
 router.post('/result', function(req,res){
   ///////////FUNCTIONS////////////
-
- var offsetCounter = 0;
-  var closeBusinesses = [];
 
   //pick random num based on length of array
   var randomNum = function(array){
@@ -74,20 +7,15 @@ router.post('/result', function(req,res){
   }
 
 
-  var closeList = function(place,distanceRadios,offsetCounter){
+  var closeApiAsync = function(place,distanceRadios,offsetCounter){
     var count = 0;
     var loops = 0;
     var distance = true;
     var returnedData = true;
-    var sortInt = 1;
-    if (distanceRadios > 900 ){
-      sortInt = 2;
-    }
-
     async.whilst(
     function () { return distance && returnedData && loops < 2},
     function (callback) {
-        yelp.search({term: 'restaurants', location: place, sort: sortInt, offset: count},
+        yelp.search({term: 'restaurants', location: place, sort: 1, offset: count},
           function(error, data) {
             if( error ) console.log(error);
             console.log('STARTING FOR LOOP WITHIN CLOSELIST')
@@ -113,16 +41,97 @@ router.post('/result', function(req,res){
         // 5 seconds have passed
       console.log('ASYNC ERROR',err);
       if (req.user) {
-          console.log('USER LOGGED IN is TRUE')
           var myCats = narrowCatsUser(closeBusinesses);
         } else {
-          console.log('USER LOGGED IN is FALSE')
           var myCats = narrowCats();
           var narrowedList = matchList(closeBusinesses, myCats);
           var finalPick = getPick(narrowedList);
         }
     })
   }
+
+
+
+  // var closeApi = function(place,distanceRadios,offsetCounter) {
+  //   console.log('IF LESS THAN 900 METERS')
+  //   yelp.search({term: 'restaurants', location: place, sort: 1, offset: offsetCounter},
+  //    function(error, data) {
+  //     if( error ) console.log(error);
+  //     console.log('STARTING FOR LOOP WITHIN CLOSELIST')
+  //     for(var i = 0; i < data.businesses.length; i ++) {
+  //       if ( data.businesses[i].distance < distanceRadios ) {
+  //         closeBusinesses.push(data.businesses[i]);
+  //       } else {
+  //         return;
+  //       }
+  //     }
+  //     // if ( data.businesses.length &&
+  //     //     data.businesses[(data.businesses.length-1)].distance < distanceRadios ) {
+  //     //   offsetCounter += 20;
+  //     //   console.log('API LOOP', data.businesses.length)
+  //     //   console.log(data.businesses[(data.businesses.length-1)].distance,
+  //     //     distanceRadios)
+  //     //   closeList(place, distanceRadios, offsetCounter)
+  //     // }
+  //      ////////////// PROCESSES CNT'D /////////////
+  //     if (req.user) {
+  //       var myCats = narrowCatsUser(closeBusinesses);
+  //     } else {
+  //       var myCats = narrowCats();
+  //       var narrowedList = matchList(closeBusinesses, myCats);
+  //       var finalPick = getPick(narrowedList);
+  //     }
+  //   });
+  // }
+
+  // var farApi = function(place,distanceRadios,offsetCounter) {
+  //   console.log('IF GREATER THAN 900 METERS')
+  //   yelp.search({term: 'restaurants', location: place, sort: 2, offset: offsetCounter},
+  //    function(error, data) {
+  //     if( error ) console.log(error);
+  //     console.log('STARTING FOR LOOP WITHIN CLOSELIST')
+  //     for(var i = 0; i < data.businesses.length; i ++) {
+  //       if ( data.businesses[i].distance < distanceRadios ) {
+  //         closeBusinesses.push(data.businesses[i]);
+  //       } else {
+  //         break;
+  //       }
+  //     }
+  //     // if ( data.businesses.length &&
+  //     //     data.businesses[(data.businesses.length-1)].distance < distanceRadios ) {
+  //     //   offsetCounter += 20;
+  //     //   console.log('API LOOP', data.businesses.length)
+  //     //   console.log(data.businesses[(data.businesses.length-1)].distance, distanceRadios)
+  //     //   closeList(place, distanceRadios, offsetCounter)
+  //     // }
+  //      ////////////// PROCESSES CNT'D /////////////
+  //     if (req.user) {
+  //        var myCats = narrowCatsUser(closeBusinesses);
+  //     } else {
+  //       var myCats = narrowCats();
+  //       var narrowedList = matchList(closeBusinesses, myCats);
+  //       var finalPick = getPick(narrowedList);
+  //     }
+  //   });
+  // }
+
+  var offsetCounter = 0;
+  var closeBusinesses = [];
+  //
+
+  var closeList = function(place, distanceRadios, offsetCounter) {
+    // var randomCat = array[randomNum(array)]
+
+    // if( distanceRadios < 900 ) {
+      closeApiAsync(place,distanceRadios,offsetCounter);
+    // } else {
+    //   farApi(place,distanceRadios,offsetCounter);
+    // }
+    if( closeBusinesses.length > 0 ) {
+      console.log(closeBusinesses.length)
+    };
+  }
+
 
   //Returns an array of all user categories, if user not logged in,
   //automatically fill in all categories
@@ -139,7 +148,6 @@ router.post('/result', function(req,res){
   var narrowCatsUser = function(closeBusinesses) {
     var catSearch = [];
       console.log("IN USER VERSION OF NARROWCATS")
-      console.log('USER ID EQUELS:', req.user.id)
         db.user.find({where: {id: req.user.id }, include: [db.category] })
           .then(function(data){
             // res.send(data)
@@ -172,15 +180,15 @@ router.post('/result', function(req,res){
         // console.log(myCats[i])
       }
     })
-    if (narrowList.length < 1){
+    if (narrowList.length < 1 ){
       console.log('IN FIRST IF OF MATCHLIST')
       req.flash('danger','There are no restaurants within your search range that match your prefrences. Please either expand your search radius or add more kinds of restaurants to your prefrences, then try again');
       // res.send(narrowList)
-      res.redirect('/ninjitsu')
+      res.redirect('ninjitsu')
     } else if ( narrowList.length === 1 ) {
       console.log('IN SECOND IF OF MATCHLIST')
       req.flash('danger','There was only one restaurant within your search range that match your prefrences. For better results in the future, please either expand your search radius or add more kinds of restaurants to your prefrences, then try again');
-      res.render('/ninjitsu/result', { finalPick: narrowList[0] })
+      res.render('ninjitsu/result', { finalPick: narrowList[0] })
     } else if ( narrowList.length < 4 ) {
       console.log('IN THIRD IF OF MATCHLIST')
       req.flash('warning','There is a limited number of restaurants within your search range that match your prefrences. For better results in the future, please either expand your search radius or add more kinds of restaurants to your prefrences, then try again');
@@ -207,7 +215,7 @@ router.post('/result', function(req,res){
     //If the above function returns an array of 3 or less
     //the below function then adds restaurants with a score
     //of 3.5.
-    if( finalNarrow.length < 6 && finalNarrow.length > 0 ) {
+    if( finalNarrow.length < 6 ) {
       console.log('IN IF OF GET PICK, LOW RATINGS')
       req.flash('warning','There is a limited number of restaurants with high yelp ratings in your search range that match your prefrences. We\'ve expanded your results to include restaurants with a 3.5 rating or above. For even better results in the future, consider either expanding your search radius or add more kinds of restaurants to your prefrences, then try again. :)');
       for( var j = 0; j < narrowedList.length; j++ ) {
@@ -219,20 +227,12 @@ router.post('/result', function(req,res){
     console.log('TOTAL RESULTS:', finalNarrow.length)
     // console.log('RESULT:', finalPick)
     var finalPick = []
-
-
-      finalPick.push(finalNarrow[randomNum(finalNarrow)])
-      res.render('ninjitsu/result', {'finalPick': finalPick, location: req.body.location, distanceRadios: req.body.distanceRadios});
-
-    };
+    finalPick.push(finalNarrow[randomNum(finalNarrow)])
+    res.render('ninjitsu/result', {'finalPick': finalPick, location: req.body.location, distanceRadios: req.body.distanceRadios});
+  };
 
  ///////////////PROCESSING START///////////////
   closeList(req.body.location, req.body.distanceRadios, 0);
 
 
 });
-
-
-// r/ninjitsu/address
-
-module.exports = router;
