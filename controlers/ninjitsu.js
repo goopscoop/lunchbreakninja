@@ -65,7 +65,7 @@ router.get('/result', function(req,res){
 router.post('/result', function(req,res){
   ///////////FUNCTIONS////////////
 
- var offsetCounter = 0;
+  var offsetCounter = 0;
   var closeBusinesses = [];
 
   //pick random num based on length of array
