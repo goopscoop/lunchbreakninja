@@ -290,7 +290,7 @@ router.post('/result', function(req,res){
     // console.log('RESULT:', finalPick)
     var finalPick = []
     finalPick.push(finalNarrow[randomNum(finalNarrow)])
-    res.render('ninjitsu/result', {'finalPick': finalPick});
+    res.render('ninjitsu/result', {'finalPick': finalPick, location: req.body.location, distanceRadios: req.body.distanceRadios});
   };
 
  ///////////////PROCESSING START///////////////

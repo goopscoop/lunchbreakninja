@@ -11,16 +11,32 @@
           <tbody>
 
           <% history.forEach(function(item, loc){ %>
-            <tr>
+            <tr <% if(history[loc].like === true){ %>class='success'
+            <%} else if (history[loc].meh === true){%> class='warning'
+            <%} else if (history[loc].like === false){%> class='danger'
+            <%} %>>
               <td>
                 <h3><%= history[loc].restaurant %></h3>
                 <p><strong>Last visited:</strong> <%= history[loc].updatedAt %></p>
               </td>
               <td>
                 <div class="btn-group">
-                  <button class='btn btn-success like-btn'><span class='glyphicon glyphicon-thumbs-up'></span></button>
-                  <button class='btn btn-warning dislike-btn'>meh.</button>
-                  <button class='btn btn-danger dislike-btn'><span class='glyphicon glyphicon-thumbs-down'></span></button>
+                <form class='like-btn'>
+                  <input type="hidden" name='id' value='<%= history[loc].id %>'>
+                  <input type="hidden" name='like' value='true'>
+                  <button class='btn btn-success <% if(history[loc].like === true){ %>active<%} %>'><span class='glyphicon glyphicon-thumbs-up'></span></button>
+                </form>
+                <form class='meh-btn'>
+                  <input type="hidden" name='like' value='false'>
+                  <input type="hidden" name='meh' value='true'>
+                  <input type="hidden" name='id' value='<%= history[loc].id %>'>
+                  <button class='btn btn-warning dislike-btn <% if(history[loc].meh === true){ %>active<%} %>'>meh.</button>
+                </form>
+                <form class='unlike-btn'>
+                  <input type="hidden" name='id' value='<%= history[loc].id %>'>
+                  <input type="hidden" name='like' value='false'>
+                  <button class='btn btn-danger dislike-btn <% if(history[loc].like === false){ %>active<%} %>'><span class='glyphicon glyphicon-thumbs-down'></span></button>
+                </form>
                 </div>
               </td>
             </tr>

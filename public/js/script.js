@@ -112,7 +112,7 @@ $('.cat-check').on('click', function(e){
       'url': '/ninjitsu/categories/remove',
       'data': data
     }).done(function(success){
-      console.log('success!', success)
+      console.log('CATEGOREY success!', success)
     })
   }
 })
@@ -124,10 +124,48 @@ $('#location-feild').on('submit', function(e){
     e.preventDefault();
     $('#search-form').effect('shake');
   }
-})
+});
+
+$('.like-btn').on('submit', function(e){
+  var form = $(this)
+  e.preventDefault();
+  var data = $(this).serialize()
+  $.ajax({
+    'method': 'put',
+      'url': '/user/like',
+      'data': data
+  }).done(function(success){
+    console.log('LIKE SUCCESS!', success)
+  });
+  $(form).closest('tr').addClass('success')
+});
+
+$('.unlike-btn').on('submit', function(e){
+  var form = $(this)
+  e.preventDefault();
+  var data = $(this).serialize()
+  $.ajax({
+    'method': 'put',
+      'url': '/user/like',
+      'data': data
+  }).done(function(success){
+    console.log('LIKE/UNLIKE SUCCESS!', success)
+  });
+  $(form).closest('tr').addClass('danger')
+});
 
 
-
-
-
+$('.meh-btn').on('submit', function(e){
+  var form = $(this)
+  e.preventDefault();
+  var data = $(this).serialize()
+  $.ajax({
+    'method': 'put',
+      'url': '/user/meh',
+      'data': data
+  }).done(function(success){
+    console.log('MEH SUCCESS!', success)
+  });
+    $(form).closest('tr').addClass('warning')
+});
 })
