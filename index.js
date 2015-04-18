@@ -8,7 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 var NODE_ENV = process.env.NODE_ENV || 'development';
-var BASE_URL = (NODE_ENV === 'production') ? 'https://lunchbreakninja.heroku.com' : 'http://localhost:3000' ;
+var BASE_URL = (NODE_ENV === 'production') ? 'https://lunchbreakninja.heroku.com' || 'http://www.lunchbreak.ninja' : 'http://localhost:3000' ;
 
 //setup passport user serialization ///
 passport.serializeUser(function(user, done){
@@ -149,5 +149,6 @@ app.get('/', function(req,res){
 app.use('/auth', require('./controlers/auth'));
 app.use('/ninjitsu', require('./controlers/ninjitsu'));
 app.use('/user', require('./controlers/user'));
+app.use('/main', require('./controlers/main'));
 
 app.listen(process.env.PORT || 3000);

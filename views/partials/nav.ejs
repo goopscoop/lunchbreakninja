@@ -1,3 +1,55 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a id='brand' class="navbar-brand" href="/"><span class="glyphicon glyphicon-cutlery"></span> LBN</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href='/ninjitsu'>Find Lunch</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if (loggedIn) { %>
+          <ul class="navbar-brand user-name">
+            <li>Hello <%= loggedIn.name %></li>
+          </ul>
+        <% } %>
+
+        <% if (loggedIn) { %>
+
+         <li class="dropdown">
+          <a id="dLabel" class="dropdown navbar-btn btn btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Profile <span class="caret"></span>
+              </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href='/user/history'>History</a></li>
+            <li><a href='/auth/categories'>Prefrences</a></li>
+            <li><a href='/auth/logout' id='logout-btn' class="navbar-btn">Log Out</a></li>
+          </ul>
+        </li>
+        <% } else {  %>
+          <li><a type="button" data-toggle="modal" data-target="#myModal">Log In</a></li>
+          <li><a href='/auth/signup' id='signup-btn' ><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
+        <% } %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- END OF NAVBAR -->
+
+
+<div class="row">
+  <h4 class='center'>Beta Version</h4>
+  <p class='center'>Check back often for more features. <a href="/main/changelog">Change log</a></p>
+</div>
 
 
 <!-- Modal -->
@@ -21,60 +73,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand navbar-btn" href="/"><span class="glyphicon glyphicon-cutlery"></span> LBN</a>
-       <% if (loggedIn) { %>
-        <ul class="navbar-brand navbar-btn user-name">
-          <li>Hello <%= loggedIn.name %></li>
-          </ul>
-       <% } %>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-
-    <div class="collapse navbar-collapse" >
-      <ul class="nav navbar-nav navbar-right">
-
-        <li><a href='/ninjitsu' class="navbar-btn btn">Find Lunch</a></li>
-
-        <% if (loggedIn) { %>
-
-          <li>
-            <div class=" dropdown ">
-              <a id="dLabel" class="dropdown navbar-btn btn btn-lg" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Me <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><a href='/user/history' class="navbar-btn btn">History</a></li>
-                <li><a href='/auth/categories' class="navbar-btn btn">Prefrences</a></li>
-              </ul>
-            </div>
-          </li>
-
-
-
-
-          <li><a href='/auth/logout' id='logout-btn' class="btn btn-info navbar-btn"><span class='glyphicon glyphicon-user'></span> Log Out</a></li>
-        <% } else {  %>
-          <li><a type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#myModal">Sign In</a></li>
-          <li><a href='/auth/signup' id='signup-btn' class="btn btn-info navbar-btn"><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
-        <% } %>
-      </ul>
-    </div>
-  </div><!-- /.container-fluid -->
-</nav>
-<div class="row">
-  <h3 class='center'>Beta Version</h3>
-  <p class='center'>Check back often for more features</p>
 </div>

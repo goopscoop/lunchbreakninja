@@ -1,18 +1,24 @@
 <% include ./partials/header %>
 <% include ./partials/nav %>
-<div class=" row header-splash">
-  <img id='home-pic' class='image-responsive glass' src="/img/head.jpeg">
-  <div class="title-pane">
-  <h1 class='title-text'>Lunch Break Ninja</h1>
-  <h3 class='subtitle-text'>Find a great place to eat in seconds, no thought required.</h3>
-  <p class='subtitle-text'><a href="http://www.yelp.com"><img src="../img/yelp.png"></a></p>
+<div class="row">
+  <div class="header-splash">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-5">
+        <h1 class='title-text'>Lunch Break Ninja</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-5">
+        <h3 class='subtitle-text'>Find a great place to eat in seconds, no thought required.</h3>
+        <p class='subtitle-text'><a href="http://www.yelp.com"><img src="../img/yelp.png"></a></p>
+      </div>
+    </div>
   </div>
 </div>
-
 <div class="container">
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <p><a class='btn btn-info btn-lg find-lunch-btn' href="/ninjitsu">Find Lunch!</a></p>
+      <p><a class='btn btn-info btn-lg' id='find-lunch-btn' href="/ninjitsu">Find Lunch!</a></p>
     </div>
   </div>
 </div>

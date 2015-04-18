@@ -15,36 +15,29 @@ body, html {
 }
 
 /*Home Page*/
-.title-pane {
-    background-color: rgba(248, 247, 216, 0.7);
-    position: absolute;
-    top: 55%;
-    /*left: 50%;*/
-    width: 100%;
-
-  z-index: 90;
-}
 
 
-#home-pic {
+
+/*#home-pic {
   width: 100%;
   position: relative;
-}
-.find-lunch-btn {
-  z-index: 99;
+}*/
+
+#find-lunch-btn {
   text-align: center;
   width: 100%;
   margin-top: 2.5%;
 }
 
+
 .title-text {
-  background-color: rgba(248, 247, 216, 0.7);
+  background-color: rgba(248, 247, 216, 0.3);
   text-shadow: 4px 4px 10px rgba(150, 150, 150, 0.69);
-  top: 55%;
+  /*top: 55%;*/
   /*left: 50%;*/
   text-align: right;
-  width: 100%;
-  position: absolute;
+  /*width: 100%;*/
+  position: relative;
   font-size: 4em;
   font-weight: 700;
   margin-top: 50px;
@@ -52,9 +45,7 @@ body, html {
 
 .subtitle-text {
   text-align: right;
-  position: relative;
-  /*margin-top: 100px;*/
-  width: 90%;
+  background-color: rgba(248, 247, 216, 0.3);
 }
 
 .glass {
@@ -64,8 +55,12 @@ body, html {
 
 
 .header-splash {
-  background-image: url('../img/head.jpeg');
-  max-height: 450px;
+  background: url(../img/head2.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 300px;
   overflow: hidden;
 }
 
