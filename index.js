@@ -143,12 +143,11 @@ app.use(function(req,res,next){
 
 app.get('/', function(req,res){
   res.render('index')
-
 });
 
+app.use('/main', require('./controlers/main'));
 app.use('/auth', require('./controlers/auth'));
 app.use('/ninjitsu', require('./controlers/ninjitsu'));
 app.use('/user', require('./controlers/user'));
-app.use('/main', require('./controlers/main'));
 
 app.listen(process.env.PORT || 3000);
