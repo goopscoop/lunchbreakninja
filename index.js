@@ -8,7 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 var NODE_ENV = process.env.NODE_ENV || 'development';
-var BASE_URL = (NODE_ENV === 'production') ? 'https://lunchbreakninja.heroku.com' || 'http://www.lunchbreak.ninja' : 'http://localhost:3000' ;
+var BASE_URL = (NODE_ENV === 'production') ? 'http://www.lunchbreak.ninja' : 'http://localhost:3000' ;
 
 //setup passport user serialization ///
 passport.serializeUser(function(user, done){
@@ -137,17 +137,30 @@ app.use(function(req,res,next){
   res.locals.loggedIn = req.user;
   // console.log('GET USER INFO!!!!!!!!', res.locals.loggedIn)
   next();
-})
+});
 
+  // Handle 404
 
 
 app.get('/', function(req,res){
   res.render('index')
 });
 
-// app.use('/main', require('./controlers/main'));
+
+app.use('/main', require('./controlers/main'));
 app.use('/auth', require('./controlers/auth'));
 app.use('/ninjitsu', require('./controlers/ninjitsu'));
 app.use('/user', require('./controlers/user'));
+
+app.use(function(req, res) {
+  res.status(400);
+  res.render('error');
+});
+
+  // Handle 500
+app.use(function(error, req, res, next) {
+  res.send('500: Internal Server Error', 500);
+});
+
 
 app.listen(process.env.PORT || 3000);
