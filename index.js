@@ -140,6 +140,11 @@ app.use(function(req,res,next){
 
 
 app.get('/', function(req,res){
+
+  // yelp.search({term: "food", location: "Montreal"}, function(error, data) {
+  //   console.log(error);
+  //   res.send(data);
+  // });
   res.render('index')
 });
 
@@ -147,7 +152,7 @@ app.get('/', function(req,res){
 app.use('/auth', require('./controllers/auth'));
 app.use('/ninjitsu', require('./controllers/ninjitsu'));
 app.use('/user', require('./controllers/user'));
-app.use('/', require('./controllers/main'));
+app.use('/main', require('./controllers/main'));
 
 // Handle 404
 app.use(function(req, res) {
