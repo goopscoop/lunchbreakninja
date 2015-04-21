@@ -135,11 +135,8 @@ app.use(function(req,res,next){
 
 app.use(function(req,res,next){
   res.locals.loggedIn = req.user;
-  // console.log('GET USER INFO!!!!!!!!', res.locals.loggedIn)
   next();
 });
-
-  // Handle 404
 
 
 app.get('/', function(req,res){
@@ -147,11 +144,12 @@ app.get('/', function(req,res){
 });
 
 
-app.use('/auth', require('./controlers/auth'));
-app.use('/ninjitsu', require('./controlers/ninjitsu'));
-app.use('/user', require('./controlers/user'));
-app.use('/main', require('./controlers/main'));
+app.use('/auth', require('./controllers/auth'));
+app.use('/ninjitsu', require('./controllers/ninjitsu'));
+app.use('/user', require('./controllers/user'));
+app.use('/', require('./controllers/main'));
 
+// Handle 404
 app.use(function(req, res) {
   res.status(400);
   res.render('error');
