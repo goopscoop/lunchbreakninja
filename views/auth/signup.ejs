@@ -1,10 +1,6 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 
-<div id="dialog" title="Email already used">
-  <p>Please sign in.</p>
-</div>
-
 <div class="container">
 
   <div class='signup-1'>
@@ -13,7 +9,6 @@
       <h1>Sign Up for a <strong>Lunch Break Ninja</strong> Account</h1>
       <% include ../partials/alerts.ejs %>
       <h3 class='center'>Step 1 of 2</h3>
-<a id='fb-login' href="/auth/login/facebook">Login with Facebook</a>
       <div class="col-md-6 col-md-offset-3">
         <form id='signup-form-1' method='post' class='signup-form' action='/auth/signup'>
           <div class="form-group">
@@ -33,6 +28,8 @@
             <input type="password" class="form-control" id="signup-pass-conf" placeholder="Password">
           </div>
           <button id='singup-btn-1' type="submit" class="btn btn-primary">Submit</button>
+        <hr>
+        <div class="center"><a id='fb-login' href="/auth/login/facebook"><img src="/img/fb-log.png"></a></div>
         </form>
       </div>
     </div>
