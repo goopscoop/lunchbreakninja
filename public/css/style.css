@@ -79,9 +79,7 @@ iframe {
   text-align: center;
 }
 
-h1 {
-  text-align: center;
-}
+
 
 #map {
   height: 300px;
@@ -91,10 +89,16 @@ h1 {
   /*padding-left: 2.5%;*/
 }
 
-#small-jumbo {
-  font-size: 0.8em;
+.small-jumbo p {
+  font-size: 1em;
   /*padding-left: 2.5%*/
 }
+
+.address p {
+  padding: 0 0 5px 2.5%;
+  margin: 0;
+}
+
 /*Signup Pages*/
 .buttons {
   display: inline;

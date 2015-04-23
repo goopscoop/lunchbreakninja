@@ -1,26 +1,7 @@
-<div class="modal fade" id="yelp-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-      </div>
-      <div class="modal-body">
-        <div class="iframe-container">
-          <iframe src="<%= finalPick[0].url %>"></iframe>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-      </div>
-    </div>
-  </div>
-</div>
 <% include ../partials/header %>
 <% include ../partials/nav %>
 <div class="row">
-  <h1>Your lunch break has been <em>ninja'd!</em></h1>
+  <h2 class="center">Your lunch break has been <em>ninja'd!</em></h2>
 </div>
 <div class="jumbotron">
   <div class="row">
@@ -33,21 +14,27 @@
           drawMap(myPoints)
         </script>
       <!-- <img class='img-responsive img-rounded' src="http://www.fillmurray.com/460/300"> -->
-    <br>
-    <p class='center'><a href="https://www.google.com/maps/dir/Current+Location/<%= finalPick[0].location.coordinate.latitude %>,<%= finalPick[0].location.coordinate.longitude %>" target="_blank">Get Directions</a></p>
+      <div class="panel panel-info">
+        <div class="panel-body small-jumbo">
+          <span class='center'><strong>Location:</strong></span>
+        </div>
+        <div class="panel-footer">
+          <div class="small-jumbo address">
+            <p><strong><%= finalPick[0].location.display_address[0] %></strong></p>
+              <% for(var i = 1; i < finalPick[0].location.display_address.length; i++) { %>
+                <p><%= finalPick[0].location.display_address[i] %></p>
+              <% } %>
+              <p><%= finalPick[0].display_phone %></p>
+            <p class='center'><a class='btn btn-default' href="https://www.google.com/maps/dir/Current+Location/<%= finalPick[0].location.coordinate.latitude %>,<%= finalPick[0].location.coordinate.longitude %>" target="_blank">Get Directions</a></p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="result-info">
-        <h2><a class='pointer' data-toggle="modal" data-target="#yelp-modal">
+        <h1><a target="_blank" href="<%= finalPick[0].url %>">
           <%= finalPick[0].name %>
-        </a></h2>
-
-
-        <!-- Button trigger modal -->
-
-
-
-
+        </a></h1>
 
         <ul>
           <li>
@@ -57,15 +44,57 @@
             <% }) %>
           </li>
         </ul>
+
         <p id='small-jumbo' >Yelp Avg. Review</p>
         <p><img class='yelp-rating' src='<%= finalPick[0].rating_img_url_large %>'></p>
+        <!-- If has deal, display deal -->
+        <% if(finalPick[0].deals) { %>
+          <div class="row">
+            <div class="col-md-10">
+              <div class="panel panel-warning">
+                <div class="panel-body">
+                  We ninja'd you a deal!
+                </div>
+                <div class="panel-footer">
+                  <p><strong><%= finalPick[0].deals[0].title %></strong></p>
+                  <p><%= finalPick[0].deals[0].what_you_get %></p>
+                  <p><em><%= finalPick[0].deals[0].important_restrictions %></em></p>
+                  <p><a class="btn btn-warning" href="<%= finalPick[0].deals[0].url %>">Get Deal</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
         <div class="row">
-          <div class="col-md-8">
-            <p><strong><%= finalPick[0].location.display_address[0] %></strong></p>
-            <% for(var i = 1; i < finalPick[0].location.display_address.length; i++) { %>
-              <p><%= finalPick[0].location.display_address[i] %></p>
-            <% } %>
-            <p><%= finalPick[0].display_phone %></p>
+          <div class="col-md-10">
+
+            <blockquote>
+              <img class='img-responsive img-rounded pull-left quote-img' src='<%= finalPick[0].snippet_image_url %>'>
+              <p>"<%= finalPick[0].snippet_text %>" <br><a target="_blank" href="<%= finalPick[0].url %>">
+                <em>Read More...</em>
+              </a></p>
+            </blockquote>
+
+          </div>
+        </div>
+        <div class="row small-jumbo">
+          <div class="col-md-6">
+            <form action='/user/history' method='post'>
+              <input type='hidden' name='restaurant' value='<%= finalPick[0].name %>'>
+              <input type='hidden' name='lat' value='<%= finalPick[0].location.coordinate.latitude %>'>
+              <input type='hidden' name='lng' value='<%= finalPick[0].location.coordinate.longitude %>'>
+              <input type='hidden' name='phone' value='<%= finalPick[0].phone %>'>
+              <button class='fill-btn btn btn-lg btn-success <%if(!loggedIn){%>disabled<%}%>'>I'm eating here!</button>
+            </form>
+            <%if(!loggedIn){%> <p><small><span class='glyphicon glyphicon-arrow-up'></span> Please create a free account to use this feature</small></p><%}%>
+          </div>
+          <div class="col-md-3 col-md-offset-1">
+            <form method="post" action='/ninjitsu/result'>
+              <input type='hidden' name='location' value='<%= location %>'>
+              <input type='hidden' name='distanceRadios' value='<%= distanceRadios %>'>
+              <button  class='fill-btn btn btn-default'>Try again</button>
+            </form>
           </div>
         </div>
       </div>
@@ -74,35 +103,14 @@
 </div>
 <div class="row">
   <div class="text-center">
-    <div class="col-md-2 col-md-offset-4">
-      <form action='/user/history' method='post'>
-        <input type='hidden' name='restaurant' value='<%= finalPick[0].name %>'>
-        <input type='hidden' name='lat' value='<%= finalPick[0].location.coordinate.latitude %>'>
-        <input type='hidden' name='lng' value='<%= finalPick[0].location.coordinate.longitude %>'>
-        <input type='hidden' name='phone' value='<%= finalPick[0].phone %>'>
-        <button  id='eating-here-btn' class='btn btn-lg btn-success <%if(!loggedIn){%>disabled<%}%>'>I'm eating here!</button>
-      </form>
-      <%if(!loggedIn){%> <p><small><span class='glyphicon glyphicon-arrow-up'></span> Please create a free account to use this feature</small></p><%}%>
-    </div>
-    <div class="col-md-2">
-      <form method="post" action='/ninjitsu/result'>
-        <input type='hidden' name='location' value='<%= location %>'>
-        <input type='hidden' name='distanceRadios' value='<%= distanceRadios %>'>
-        <button id='try-again-btn' class='btn btn-default'>Try again</button>
-      </form>
-    </div>
+    <!-- delete if works -->
 
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <blockquote>
-      <img class='img-responsive img-rounded pull-left quote-img' src='<%= finalPick[0].snippet_image_url %>'>
-      <p>"<%= finalPick[0].snippet_text %>" <br><a class='pointer' data-toggle="modal" data-target="#yelp-modal">
-          <em>Read More...</em>
-        </a></p>
-      </blockquote>
+
     </div>
   </div>
 </div>

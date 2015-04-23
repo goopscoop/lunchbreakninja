@@ -141,11 +141,11 @@ app.use(function(req,res,next){
 
 app.get('/', function(req,res){
 
-  // yelp.search({term: "food", location: "Montreal"}, function(error, data) {
-  //   console.log(error);
-  //   res.send(data);
-  // });
-  res.render('index')
+  yelp.search({term: "food", location: "Montreal", deals_filter: true}, function(error, data) {
+    console.log(error);
+    res.send(data);
+  });
+  // res.render('index')
 });
 
 
