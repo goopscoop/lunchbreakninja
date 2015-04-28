@@ -1,3 +1,5 @@
+//LOOK INTO TWILIO
+
 var express = require('express');
 var router = express.Router();
 var db = require('../models');
@@ -19,13 +21,14 @@ router.post('/categories', function(req,res){
   console.log('ADDING CATEGORY INFO', catInfo)
   db.categoriesusers.findOrCreate({where:
     {userId: catInfo.userId, categoryId: catInfo.category }
-  }).spread(function(category,created){
+  })
+  .spread(function(category,created){
     console.log(category.get({
       plain: true
     }))
     console.log(created)
+    res.render('ninjitsu')
   })
-  res.render('ninjitsu')
 });
 
 router.post('/categories/remove', function(req,res){
@@ -91,6 +94,7 @@ router.post('/result', function(req,res){
           function(error, data) {
             if( error ) console.log(error);
             console.log('STARTING FOR LOOP WITHIN CLOSELIST')
+            //REFACTOR WITH FILTER OR MAP
             if (data) {
               for(var i = 0; i < data.businesses.length; i ++) {
                 if ( data.businesses[i].distance < parseInt(distanceRadios) ) {
@@ -144,6 +148,7 @@ router.post('/result', function(req,res){
           .then(function(data){
             // res.send(data)
             console.log('CATEGORYS PICKED');
+            // REFACTOR MAP TO RETURN CATEGORIES
             for(var i = 0; i < data.categories.length; i ++){
               catSearch.push(data.categories[i].category)
               console.log('cat', i, data.categories[i].category)
@@ -159,6 +164,8 @@ router.post('/result', function(req,res){
     console.log('STARTING MATCHLIST')
     // console.log(fullList)
     var narrowList = [];
+
+    ///REFACTOR W/ possible filter
     fullList.forEach(function(val, loc){
       for(var i = 0; i < myCats.length; i++ ){
         if(fullList[loc].categories[0][0] === myCats[i] ||
